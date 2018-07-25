@@ -10,8 +10,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./ssl-certs:/etc/nginx/certs
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
   letsencrypt:
     container_name: letsencrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -20,7 +22,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     volumes_from:
-      - "nginx-proxy"
+      - nginx-proxy
 
 # networks:
 #   default:
