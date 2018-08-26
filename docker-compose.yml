@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 
 services:
   nginx-proxy:
@@ -10,6 +10,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./ssl-certs:/etc/nginx/certs
   letsencrypt:
