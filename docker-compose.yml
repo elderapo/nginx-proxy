@@ -5,7 +5,7 @@ services:
     container_name: nginx-proxy
     image: jwilder/nginx-proxy
     restart: always
-    network_mode: "host"
+    network_mode: "bridge"
     ports:
       - "80:80"
       - "443:443"
@@ -18,13 +18,12 @@ services:
     container_name: letsencrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: always
-    network_mode: "host"
+    network_mode: "bridge"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     volumes_from:
       - nginx-proxy
-
-# networks:
-#   default:
-#     external:
-#      name: nginx-proxy-network
+networks:
+  default:
+    external:
+      name: nginx-proxy-network
